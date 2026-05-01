@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Budget Item</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f8f0f5;
+        }
+        h1 { color: #8B5E83; }
+        .form-card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 500px;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+            color: #8B5E83;
+            font-weight: bold;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .btn-submit {
+            margin-top: 20px;
+            background-color: #8B5E83;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+        .btn-back {
+            display: inline-block;
+            margin-bottom: 15px;
+            color: #8B5E83;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+<h1>💍 Edit Budget Item</h1>
+
+<a href="/budget" class="btn-back">← Back to Summary</a>
+
+<div class="form-card">
+    <form th:action="@{/budget/edit/{id}
+        (id=${item.budgetId})}" method="post">
+
+        <label>Category:</label>
+        <select name="category">
+            <option value="VENUE"
+                    th:selected="${item.category == 'VENUE'}">
+                Venue</option>
+            <option value="CATERING"
+                    th:selected="${item.category == 'CATERING'}">
+                Catering</option>
+            <option value="PHOTOGRAPHY"
+                    th:selected="${item.category == 'PHOTOGRAPHY'}">
+                Photography</option>
+            <option value="FLOWERS"
+                    th:selected="${item.category == 'FLOWERS'}">
+                Flowers</option>
+            <option value="MUSIC"
+                    th:selected="${item.category == 'MUSIC'}">
+                Music</option>
+            <option value="TRANSPORT"
+                    th:selected="${item.category == 'TRANSPORT'}">
+                Transport</option>
+            <option value="OTHER"
+                    th:selected="${item.category == 'OTHER'}">
+                Other</option>
+        </select>
+
+        <label>Estimated Cost (Rs.):</label>
+        <input type="number" name="estimatedCost"
+               th:value="${item.estimatedCost}" required/>
+
+        <label>Actual Cost (Rs.):</label>
+        <input type="number" name="actualCost"
+               th:value="${item.actualCost}" required/>
+
+        <label>Type:</label>
+        <select name="type">
+            <option value="FIXED">Fixed Expense</option>
+            <option value="VARIABLE">Variable Expense</option>
+        </select>
+
+        <label>Paid:</label>
+        <select name="isPaid">
+            <option value="true"
+                    th:selected="${item.paid}">Yes</option>
+            <option value="false"
+                    th:selected="${!item.paid}">No</option>
+        </select>
+
+        <button type="submit" class="btn-submit">
+            Update Budget Item
+        </button>
+
+    </form>
+</div>
+
+</body>
+</html>
