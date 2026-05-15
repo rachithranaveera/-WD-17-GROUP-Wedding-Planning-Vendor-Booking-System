@@ -1,4 +1,4 @@
-package com.example.wd17usermangement.Model;
+package com.weddingapp.wd17weddingplanner.model;
 
 import jakarta.persistence.*;
 
