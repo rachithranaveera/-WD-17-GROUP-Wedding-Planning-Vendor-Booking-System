@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Sign Up - Wedding Planner</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div th:replace="~{fragments :: navbar}"></div>
+    <div class="container" style="max-width: 400px;">
+        <h2>Sign Up</h2>
+        <form th:action="@{/register}" th:object="${couple}" method="post">
+            <div>
+                <label>Full Name</label>
+                <input type="text" th:field="*{fullName}" required placeholder="e.g. John & Jane">
+            </div>
+            <div>
+                <label>Username</label>
+                <input type="text" th:field="*{username}" required>
+            </div>
+            <div>
+                <label>Password</label>
+                <input type="password" th:field="*{password}" required>
+            </div>
+            <div>
+                <label>Estimated Budget ($)</label>
+                <input type="number" step="0.01" th:field="*{estimatedBudget}" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Sign Up</button>
+            <p>Already have an account? <a href="/login">Login here</a></p>
+        </form>
+    </div>
+</body>
+</html>
