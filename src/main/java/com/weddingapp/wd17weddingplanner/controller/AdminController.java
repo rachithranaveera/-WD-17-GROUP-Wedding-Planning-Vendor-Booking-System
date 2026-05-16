@@ -2,7 +2,9 @@ package com.weddingapp.wd17weddingplanner.controller;
 
 
 import com.weddingapp.wd17weddingplanner.model.Admin;
+import com.weddingapp.wd17weddingplanner.model.Vendor;
 import com.weddingapp.wd17weddingplanner.services.UserService;
+import com.weddingapp.wd17weddingplanner.services.VendorService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +17,9 @@ public class AdminController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private VendorService vendorService;
 
 
     private boolean isAdmin(HttpSession session) {
@@ -40,6 +45,20 @@ public class AdminController {
     public String addAdmin(@ModelAttribute Admin admin, HttpSession session) {
         if (!isAdmin(session)) return "redirect:/login";
         userService.saveUser(admin);
+        return "redirect:/admin/dashboard";
+    }
+
+    @GetMapping("/vendors/add")
+    public String addVendorPage(HttpSession session, Model model) {
+        if (!isAdmin(session)) return "redirect:/login";
+        model.addAttribute("vendor", new Vendor());
+        return "add_vendor";
+    }
+
+    @PostMapping("/vendors/add")
+    public String addVendor(@ModelAttribute Vendor vendor, HttpSession session) {
+        if (!isAdmin(session)) return "redirect:/login";
+        vendorService.saveVendor(vendor);
         return "redirect:/admin/dashboard";
     }
 
