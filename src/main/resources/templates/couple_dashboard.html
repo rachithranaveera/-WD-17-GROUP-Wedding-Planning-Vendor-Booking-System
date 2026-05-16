@@ -44,8 +44,23 @@
         </tbody>
     </table>
 
-    <hr style="margin: 40px 0; border: 1px solid #eee;">
-
+    <h3>My Bookings</h3>
+    <table>
+        <thead>
+        <tr>
+            <th>Vendor</th>
+            <th>Date</th>
+            <th>Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="booking : ${myBookings}">
+            <td th:text="${booking.vendor.name}"></td>
+            <td th:text="${booking.bookingDate}"></td>
+            <td th:text="${booking.status}"></td>
+        </tr>
+        </tbody>
+    </table>
 
 </div>
 </body>

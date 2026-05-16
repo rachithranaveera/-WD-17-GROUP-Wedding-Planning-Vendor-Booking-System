@@ -3,6 +3,7 @@ package com.weddingapp.wd17weddingplanner.controller;
 
 import com.weddingapp.wd17weddingplanner.model.Admin;
 import com.weddingapp.wd17weddingplanner.model.Vendor;
+import com.weddingapp.wd17weddingplanner.services.BookingService;
 import com.weddingapp.wd17weddingplanner.services.UserService;
 import com.weddingapp.wd17weddingplanner.services.VendorService;
 import jakarta.servlet.http.HttpSession;
@@ -17,9 +18,10 @@ public class AdminController {
 
     @Autowired
     private UserService userService;
-
     @Autowired
     private VendorService vendorService;
+    @Autowired
+    private BookingService bookingService;
 
 
     private boolean isAdmin(HttpSession session) {
@@ -48,6 +50,8 @@ public class AdminController {
         return "redirect:/admin/dashboard";
     }
 
+    //Rifsky
+
     @GetMapping("/vendors/add")
     public String addVendorPage(HttpSession session, Model model) {
         if (!isAdmin(session)) return "redirect:/login";
@@ -59,6 +63,15 @@ public class AdminController {
     public String addVendor(@ModelAttribute Vendor vendor, HttpSession session) {
         if (!isAdmin(session)) return "redirect:/login";
         vendorService.saveVendor(vendor);
+        return "redirect:/admin/dashboard";
+    }
+
+    //chandira
+
+    @PostMapping("/bookings/update")
+    public String updateBooking(@RequestParam Long bookingId, @RequestParam String status, HttpSession session) {
+        if (!isAdmin(session)) return "redirect:/login";
+        bookingService.updateBookingStatus(bookingId, status);
         return "redirect:/admin/dashboard";
     }
 
