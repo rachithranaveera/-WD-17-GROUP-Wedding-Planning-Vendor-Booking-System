@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add Vendor - Wedding Planner</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div th:replace="~{fragments :: navbar}"></div>
+    <div class="container" style="max-width: 500px;">
+        <h2>Add New Vendor</h2>
+        <form th:action="@{/admin/vendors/add}" th:object="${vendor}" method="post">
+            <div>
+                <label>Vendor Name</label>
+                <input type="text" th:field="*{name}" required>
+            </div>
+            <div>
+                <label>Category</label>
+                <input type="text" th:field="*{category}" required>
+            </div>
+            <div>
+                <label>Price</label>
+                <input type="number" step="0.01" th:field="*{price}" required>
+            </div>
+            <div>
+                <label>Description</label>
+                <textarea th:field="*{description}" rows="4"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Save Vendor</button>
+            <a href="/admin/dashboard" class="btn">Cancel</a>
+        </form>
+    </div>
+</body>
+</html>
