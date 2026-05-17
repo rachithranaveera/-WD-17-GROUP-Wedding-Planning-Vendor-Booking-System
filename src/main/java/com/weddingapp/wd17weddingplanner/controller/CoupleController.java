@@ -2,8 +2,10 @@ package com.weddingapp.wd17weddingplanner.controller;
 
 import com.weddingapp.wd17weddingplanner.model.Booking;
 import com.weddingapp.wd17weddingplanner.model.Couple;
+import com.weddingapp.wd17weddingplanner.model.Review;
 import com.weddingapp.wd17weddingplanner.model.Vendor;
 import com.weddingapp.wd17weddingplanner.services.BookingService;
+import com.weddingapp.wd17weddingplanner.services.ReviewService;
 import com.weddingapp.wd17weddingplanner.services.VendorService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,8 @@ public class CoupleController {
     private VendorService vendorService;
     @Autowired
     private BookingService bookingService;
+    @Autowired
+    private ReviewService reviewService;
 
     private Couple getLoggedCouple(HttpSession session) {
         Object user = session.getAttribute("user");
@@ -55,6 +59,8 @@ public class CoupleController {
         model.addAttribute("spent", spent);
         model.addAttribute("remaining", couple.getEstimatedBudget() - spent);
 
+        model.addAttribute("reviews", reviewService.getAllReviews());
+
 
         return "couple_dashboard";
     }
@@ -74,6 +80,22 @@ public class CoupleController {
             booking.setBookingDate(LocalDate.parse(date));
             bookingService.createBooking(booking);
         }
+        return "redirect:/couple/dashboard";
+    }
+
+    //raveshan
+
+    @PostMapping("/review")
+    public String submitReview(@RequestParam String content, @RequestParam int rating, HttpSession session) {
+        Couple couple = getLoggedCouple(session);
+        if (couple == null) return "redirect:/login";
+
+        Review review = new Review();
+        review.setCouple(couple);
+        review.setContent(content);
+        review.setRating(rating);
+        reviewService.saveReview(review);
+
         return "redirect:/couple/dashboard";
     }
 }

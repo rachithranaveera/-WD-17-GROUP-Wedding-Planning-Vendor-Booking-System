@@ -20,12 +20,14 @@ public class DataInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+        // Create Admin
         Admin admin = new Admin();
         admin.setUsername("admin");
         admin.setPassword("admin123");
         admin.setFullName("System Admin");
         userRepository.save(admin);
 
+        // Create Couple
         Couple couple = new Couple();
         couple.setUsername("couple");
         couple.setPassword("couple123");
@@ -33,15 +35,16 @@ public class DataInitializer implements CommandLineRunner {
         couple.setEstimatedBudget(50000.0);
         userRepository.save(couple);
 
+        // Create Vendors
         Vendor v1 = new Vendor();
-        v1.setName("Ballroom");
+        v1.setName("Grand Ballroom");
         v1.setCategory("Venue");
         v1.setPrice(10000.0);
         v1.setDescription("Luxurious ballroom for up to 500 guests.");
         vendorRepository.save(v1);
 
         Vendor v2 = new Vendor();
-        v2.setName("Catering");
+        v2.setName("Tasty Catering");
         v2.setCategory("Catering");
         v2.setPrice(5000.0);
         v2.setDescription("Delicious 5-course meal for all your guests.");
