@@ -32,9 +32,9 @@ public class InvoiceService {
         content.append("Dear ").append(couple.getFullName()).append(",\n\n");
         content.append("Thank you for using Wedding Planner. Here is your current invoice summary:\n\n");
         content.append("--- BUDGET OVERVIEW ---\n");
-        content.append("Estimated Budget: $").append(couple.getEstimatedBudget()).append("\n");
-        content.append("Total Amount Spent: $").append(totalSpent).append("\n");
-        content.append("Remaining Budget: $").append(couple.getEstimatedBudget() - totalSpent).append("\n\n");
+        content.append("Estimated Budget: LKR").append(couple.getEstimatedBudget()).append("\n");
+        content.append("Total Amount Spent: LKR").append(totalSpent).append("\n");
+        content.append("Remaining Budget: LKR").append(couple.getEstimatedBudget() - totalSpent).append("\n\n");
 
         content.append("--- BOOKING DETAILS ---\n");
         for (Booking b : bookings) {

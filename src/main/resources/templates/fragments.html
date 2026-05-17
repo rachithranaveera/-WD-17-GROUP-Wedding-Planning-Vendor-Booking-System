@@ -26,6 +26,8 @@
             <th:block th:if="${session.user != null && session.user.getClass().getSimpleName() == 'Couple'}">
                 <a href="/couple/dashboard">Couple Dashboard</a>
                 <a href="/logout" class="logout-link">Logout (<span th:text="${session.user.fullName}"></span>)</a>
+                <a href="/">Home</a>
+                <a href="/contact">Contact Us</a> 
             </th:block>
         </div>
     </div>
