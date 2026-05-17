@@ -32,7 +32,11 @@ public class AdminController {
     @GetMapping("/dashboard")
     public String dashboard(HttpSession session, Model model) {
         if (!isAdmin(session)) return "redirect:/login";
+        
         model.addAttribute("users", userService.getAllUsers());
+        
+        model.addAttribute("bookings", bookingService.getAllBookings());
+        model.addAttribute("vendors", vendorService.getAllVendors());
         return "admin_dashboard";
     }
 
