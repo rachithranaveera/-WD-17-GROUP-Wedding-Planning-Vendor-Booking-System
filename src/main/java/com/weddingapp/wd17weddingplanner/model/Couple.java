@@ -8,6 +8,8 @@ import jakarta.persistence.Entity;
 public class Couple extends User {
     private Double estimatedBudget;
 
+    //Rachith
+
     public Double getEstimatedBudget() { return estimatedBudget; }
     public void setEstimatedBudget(Double estimatedBudget) { this.estimatedBudget = estimatedBudget; }
 }

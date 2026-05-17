@@ -5,6 +5,7 @@ import com.weddingapp.wd17weddingplanner.model.Couple;
 import com.weddingapp.wd17weddingplanner.model.Review;
 import com.weddingapp.wd17weddingplanner.model.Vendor;
 import com.weddingapp.wd17weddingplanner.services.BookingService;
+import com.weddingapp.wd17weddingplanner.services.InvoiceService;
 import com.weddingapp.wd17weddingplanner.services.ReviewService;
 import com.weddingapp.wd17weddingplanner.services.VendorService;
 import jakarta.servlet.http.HttpSession;
@@ -57,6 +58,8 @@ public class CoupleController {
         model.addAttribute("myBookings", myBookings);
 
         model.addAttribute("spent", spent);
+
+        //rachith
         model.addAttribute("remaining", couple.getEstimatedBudget() - spent);
 
         model.addAttribute("reviews", reviewService.getAllReviews());
@@ -97,5 +100,26 @@ public class CoupleController {
         reviewService.saveReview(review);
 
         return "redirect:/couple/dashboard";
+    }
+
+    //Rachith
+
+    @Autowired
+    private InvoiceService invoiceService;
+
+    @PostMapping("/invoice")
+    public String sendInvoice(@RequestParam String recipientEmail, HttpSession session) {
+        Couple couple = getLoggedCouple(session);
+        if (couple == null) return "redirect:/login";
+
+        List<Booking> myBookings = bookingService.getBookingsByCouple(couple);
+        double spent = myBookings.stream()
+                .filter(b -> "CONFIRMED".equals(b.getStatus()))
+                .mapToDouble(b -> b.getVendor().getPrice())
+                .sum();
+
+        invoiceService.generateAndSendInvoice(couple, myBookings, spent, recipientEmail);
+
+        return "redirect:/couple/dashboard?sent=true";
     }
 }
