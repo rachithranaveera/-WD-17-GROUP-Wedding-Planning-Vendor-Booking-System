@@ -44,13 +44,14 @@ public class CoupleController {
         Couple couple = getLoggedCouple(session);
         if (couple == null) return "redirect:/login";
 
-        //rifsky,chandira
 
         List<Booking> myBookings = bookingService.getBookingsByCouple(couple);
         double spent = myBookings.stream()
                 .filter(b -> "CONFIRMED".equals(b.getStatus()))
                 .mapToDouble(b -> b.getVendor().getPrice())
                 .sum();
+
+        //rifsky,chandira
 
         model.addAttribute("couple", couple);
         model.addAttribute("vendors", vendorService.getAllVendors());
