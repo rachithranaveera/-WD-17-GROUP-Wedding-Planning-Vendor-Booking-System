@@ -12,9 +12,9 @@
             theme: {
                 extend: {
                     colors: {
-                        "primary": "#963c43",         /* Premium Deep Rose / Burgundy */
+                        "primary": "#963c43",       
                         "primary-hover": "#7d2a31",
-                        "background": "#fcf9f8",      /* Soft Luxury Ivory Canvas */
+                        "background": "#fcf9f8",      
                         "surface": "#ffffff",
                         "text-main": "#1b1c1c",
                         "text-muted": "#554242",
@@ -38,7 +38,9 @@
 
 <div th:replace="~{fragments :: navbar}"></div>
 
-<main class="w-full flex-grow flex items-center justify-center p-4 sm:p-6 lg:p-8 pt-28">
+<div class="h-20 w-full block clear-both"></div>
+
+<main class="w-full flex-grow flex justify-center p-4 sm:p-6 lg:p-8 pt-12 pb-12">
     <div class="w-full max-w-md bg-surface border border-border-light rounded-2xl p-6 sm:p-10 shadow-sm space-y-6">
 
         <div class="text-center space-y-1">
@@ -67,13 +69,13 @@
             </div>
 
             <div class="space-y-1">
-                <label class="block text-xs uppercase tracking-wider font-semibold text-text-muted">Estimated Target Budget ($)</label>
+                <label class="block text-xs uppercase tracking-wider font-semibold text-text-muted">Estimated Target Budget (LKR)</label>
                 <div class="relative rounded-lg shadow-sm">
-                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <span class="text-text-muted/50 text-sm">$</span>
+                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                        <span class="text-text-muted/60 text-xs font-bold tracking-wider">LKR</span>
                     </div>
                     <input type="number" step="0.01" th:field="*{estimatedBudget}" required placeholder="0.00"
-                           class="w-full text-sm bg-background border border-border-light rounded-lg pl-7 p-3 text-text-main focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all placeholder:text-text-muted/30" />
+                           class="w-full text-sm bg-background border border-border-light rounded-lg pl-14 p-3 text-text-main focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all placeholder:text-text-muted/30" />
                 </div>
             </div>
 
