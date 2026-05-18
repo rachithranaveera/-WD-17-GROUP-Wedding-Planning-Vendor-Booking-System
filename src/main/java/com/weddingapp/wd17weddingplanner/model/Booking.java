@@ -20,7 +20,7 @@ public class Booking {
     private Vendor vendor;
 
     private LocalDate bookingDate;
-    private String status; // WAITING, CONFIRMED, REJECTED
+    private String status; 
 
     // Getters and Setters
     public Long getId() { return id; }
