@@ -23,7 +23,7 @@
             </th:block>
 
             <th:block th:if="${session.user != null && session.user.getClass().getSimpleName() == 'Admin'}">
-                <a href="/admin/dashboard" class="hover:text-primary transition-colors duration-150 flex items-center gap-1.5">
+                <a href="/h2-console" class="hover:text-primary transition-colors duration-150 flex items-center gap-1.5">
                     <span class="material-symbols-outlined text-base">dashboard</span> Console
                 </a>
                 <a href="/admin/vendors/add" class="hover:text-primary transition-colors duration-150 flex items-center gap-1.5">
