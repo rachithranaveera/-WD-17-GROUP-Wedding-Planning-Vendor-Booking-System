@@ -1,90 +1,101 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Admin Dashboard - Wedding Planner</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Add Vendor - Forever Yours</title>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#963c43",         /* Deep luxurious rose */
+                        "primary-hover": "#7d2a31",
+                        "background": "#fcf9f8",      /* Soft ivory/champagne canvas */
+                        "surface": "#ffffff",
+                        "text-main": "#1b1c1c",
+                        "text-muted": "#554242",
+                        "border-light": "#e4e2e1"
+                    },
+                    fontFamily: {
+                        "display": ["EB Garamond", "serif"],
+                        "sans": ["Source Sans 3", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Source Sans 3', sans-serif; background-color: #fcf9f8; }
+        .font-display { font-family: 'EB Garamond', serif; }
+    </style>
 </head>
-<body>
+<body class="text-text-main min-h-screen">
+
 <div th:replace="~{fragments :: navbar}"></div>
-<div class="container">
-    <h2>Admin Dashboard</h2>
 
-    <h3>Manage Bookings</h3>
-    <table>
-        <thead>
-        <tr>
-            <th>Couple</th>
-            <th>Vendor</th>
-            <th>Date</th>
-            <th>Status</th>
-            <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="booking : ${bookings}">
-            <td th:text="${booking.couple.fullName}"></td>
-            <td th:text="${booking.vendor.name}"></td>
-            <td th:text="${booking.bookingDate}"></td>
-            <td th:text="${booking.status}"></td>
-            <td>
-                <form th:action="@{/admin/bookings/update}" method="post" style="display:inline;">
-                    <input type="hidden" name="bookingId" th:value="${booking.id}">
-                    <input type="hidden" name="status" value="CONFIRMED">
-                    <button type="submit" class="btn btn-success" th:disabled="${booking.status == 'CONFIRMED'}">Accept</button>
-                </form>
-                <form th:action="@{/admin/bookings/update}" method="post" style="display:inline;">
-                    <input type="hidden" name="bookingId" th:value="${booking.id}">
-                    <input type="hidden" name="status" value="REJECTED">
-                    <button type="submit" class="btn btn-danger" th:disabled="${booking.status == 'REJECTED'}">Reject</button>
-                </form>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-12 space-y-16">
 
-    <h3>User Management</h3>
-    <div style="margin-bottom: 20px;">
-        <a href="/admin/users/add-admin" class="btn btn-primary">Add New Admin</a>
+    <div class="border-b border-border-light pb-6">
+        <a th:href="@{/admin/dashboard}" class="inline-flex items-center gap-1 text-xs font-semibold uppercase tracking-wider text-primary hover:text-primary-hover mb-2 transition-colors">
+            <span class="material-symbols-outlined text-sm">arrow_back</span> Back to Console
+        </a>
+        <h1 class="text-4xl font-display font-medium text-primary tracking-tight">Add New Vendor</h1>
+        <p class="text-text-muted text-sm mt-1">Register a curated service provider into the couple marketplace catalog.</p>
     </div>
-    <table>
-        <thead>
-        <tr>
-            <th>Full Name</th>
-            <th>Username</th>
-            <th>Role</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="u : ${users}">
-            <td th:text="${u.fullName}"></td>
-            <td th:text="${u.username}"></td>
-            <td th:text="${u.getClass().getSimpleName()}"></td>
-        </tr>
-        </tbody>
-    </table>
 
-    <h3>Vendor Booking Schedule</h3>
-    <table>
-        <thead>
-        <tr>
-            <th>Vendor Name</th>
-            <th>Booked Dates</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="vendor : ${vendors}">
-            <td th:text="${vendor.name}"></td>
-            <td>
-                <ul>
-                    <li th:each="booking : ${bookings}"
-                        th:if="${booking.vendor.id == vendor.id && booking.status == 'CONFIRMED'}"
-                        th:text="${booking.bookingDate}">
-                    </li>
-                </ul>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-</div>
+    <div class="bg-surface border border-border-light rounded-2xl p-6 sm:p-10 shadow-sm">
+        <form th:action="@{/admin/vendors/add}" method="post" class="space-y-6">
+
+            <div class="space-y-1">
+                <label class="block text-xs uppercase tracking-wider font-semibold text-text-muted">Vendor Registry Name</label>
+                <input type="text" name="name" required placeholder="e.g. Victoria Estates or Ceylon Blooms"
+                       class="w-full text-sm bg-background border border-border-light rounded-lg p-3 text-text-main focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all placeholder:text-text-muted/30" />
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div class="space-y-1">
+                    <label class="block text-xs uppercase tracking-wider font-semibold text-text-muted">Service Category</label>
+                    <select name="category" required
+                            class="w-full text-sm bg-background border border-border-light rounded-lg p-3 text-text-main focus:ring-1 focus:ring-primary focus:border-primary outline-none appearance-none">
+                        <option value="Venues">Venues & Locations</option>
+                        <option value="Photography">Photography & Cinema</option>
+                        <option value="Catering">Catering & Cuisine</option>
+                        <option value="Floral">Floral & Decor Design</option>
+                        <option value="Music">Entertainment & Music</option>
+                    </select>
+                </div>
+
+                <div class="space-y-1">
+                    <label class="block text-xs uppercase tracking-wider font-semibold text-text-muted">Starting Price / Fee ($)</label>
+                    <input type="number" step="0.01" name="price" required placeholder="0.00"
+                           class="w-full text-sm bg-background border border-border-light rounded-lg p-3 text-text-main focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all placeholder:text-text-muted/30" />
+                </div>
+            </div>
+
+            <div class="space-y-1">
+                <label class="block text-xs uppercase tracking-wider font-semibold text-text-muted">Showcase Image URL (Optional)</label>
+                <input type="url" name="imageUrl" placeholder="https://example.com/image.jpg"
+                       class="w-full text-sm bg-background border border-border-light rounded-lg p-3 text-text-main focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all placeholder:text-text-muted/30" />
+            </div>
+
+            <div class="space-y-1">
+                <label class="block text-xs uppercase tracking-wider font-semibold text-text-muted">Service Portfolio Description</label>
+                <textarea name="description" rows="5" required placeholder="Detail the unique luxury features, offerings, and logistical inclusions of this vendor profile..."
+                          class="w-full text-sm bg-background border border-border-light rounded-lg p-4 text-text-main focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all placeholder:text-text-muted/30"></textarea>
+            </div>
+
+            <div class="pt-4 border-t border-border-light/40 flex justify-end">
+                <button type="submit" class="bg-primary hover:bg-primary-hover text-white text-xs font-semibold uppercase tracking-widest px-8 py-3.5 rounded-full shadow-sm transition-colors duration-150">
+                    Publish Vendor
+                </button>
+            </div>
+        </form>
+    </div>
+</main>
+
 </body>
 </html>

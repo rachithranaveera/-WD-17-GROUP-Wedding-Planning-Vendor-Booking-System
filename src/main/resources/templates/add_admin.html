@@ -1,29 +1,91 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Add Admin - Wedding Planner</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Add Admin - Forever Yours</title>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#963c43",         /* Premium Burgundy / Deep Rose */
+                        "primary-hover": "#7d2a31",
+                        "background": "#fcf9f8",      /* Soft Luxury Ivory Canvas */
+                        "surface": "#ffffff",
+                        "text-main": "#1b1c1c",
+                        "text-muted": "#554242",
+                        "border-light": "#e4e2e1"
+                    },
+                    fontFamily: {
+                        "display": ["EB Garamond", "serif"],
+                        "sans": ["Source Sans 3", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Source Sans 3', sans-serif; background-color: #fcf9f8; }
+        .font-display { font-family: 'EB Garamond', serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24; }
+    </style>
 </head>
-<body>
-    <div th:replace="~{fragments :: navbar}"></div>
-    <div class="container" style="max-width: 500px;">
-        <h2>Create New Admin Account</h2>
-        <form th:action="@{/admin/users/add-admin}" th:object="${admin}" method="post">
-            <div>
-                <label>Full Name</label>
-                <input type="text" th:field="*{fullName}" required>
+<body class="text-text-main min-h-screen flex flex-col justify-between">
+
+<div th:replace="~{fragments :: navbar}"></div>
+
+<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-12 space-y-16">
+    <div class="w-full max-w-lg bg-surface border border-border-light rounded-2xl p-6 sm:p-10 shadow-sm space-y-6">
+
+        <div>
+            <a href="/admin/dashboard" class="inline-flex items-center gap-1 text-xs font-semibold uppercase tracking-wider text-primary hover:text-primary-hover mb-2 transition-colors">
+                <span class="material-symbols-outlined text-sm">arrow_back</span> Back to Console
+            </a>
+            <h2 class="text-3xl font-display font-semibold text-text-main">Create Admin Account</h2>
+            <p class="text-xs text-text-muted mt-1">Provision a new operational administrator profile with secure platform credentials.</p>
+        </div>
+
+        <form th:action="@{/admin/users/add-admin}" th:object="${admin}" method="post" class="space-y-5">
+
+            <div class="space-y-1">
+                <label class="block text-xs uppercase tracking-wider font-semibold text-text-muted">Full Identity Name</label>
+                <input type="text" th:field="*{fullName}" required placeholder="e.g. Administrator Name"
+                       class="w-full text-sm bg-background border border-border-light rounded-lg p-3 text-text-main focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all placeholder:text-text-muted/30" />
             </div>
-            <div>
-                <label>Username</label>
-                <input type="text" th:field="*{username}" required>
+
+            <div class="space-y-1">
+                <label class="block text-xs uppercase tracking-wider font-semibold text-text-muted">Unique Security Username</label>
+                <input type="text" th:field="*{username}" required placeholder="e.g. admin_handle"
+                       class="w-full text-sm bg-background border border-border-light rounded-lg p-3 text-text-main focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all placeholder:text-text-muted/30" />
             </div>
-            <div>
-                <label>Password</label>
-                <input type="password" th:field="*{password}" required>
+
+            <div class="space-y-1">
+                <label class="block text-xs uppercase tracking-wider font-semibold text-text-muted">Temporary Initial Password</label>
+                <input type="password" th:field="*{password}" required placeholder="••••••••"
+                       class="w-full text-sm bg-background border border-border-light rounded-lg p-3 text-text-main focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all placeholder:text-text-muted/30" />
             </div>
-            <button type="submit" class="btn btn-primary">Save Admin</button>
-            <a href="/admin/dashboard" class="btn">Cancel</a>
+
+            <div class="pt-4 border-t border-border-light/40 flex items-center justify-end gap-3">
+                <a href="/admin/dashboard" class="text-xs font-semibold uppercase tracking-widest px-6 py-3 rounded-full hover:bg-background border border-transparent hover:border-border-light transition-all text-text-muted">
+                    Cancel
+                </a>
+                <button type="submit" class="bg-primary hover:bg-primary-hover text-white text-xs font-semibold uppercase tracking-widest px-6 py-3 rounded-full shadow-sm transition-colors duration-150">
+                    Save Admin
+                </button>
+            </div>
+
         </form>
+
     </div>
+</main>
+
+<footer class="w-full bg-surface border-t border-border-light py-6 text-center text-xs text-text-muted">
+    <p>© 2026 Forever Yours. Curating Timeless Sri Lankan Weddings.</p>
+</footer>
+
 </body>
 </html>
